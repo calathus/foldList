@@ -1,5 +1,5 @@
 package scalax.collection.immutable
-import scala.collection.mutable._
+import scala.collection.immutable._
 
 /**
  * foldRight for List. this uses minimal working space for n traversal list.
@@ -7,20 +7,18 @@ import scala.collection.mutable._
  * @author <a href="http://ncalathus.blogspot.com">nicolas calathus</a>
  */
 object foldList {
+  def foldRight[A: Manifest, B](es: LinearSeq[A])(z: B)(op: (A, B) => B): B = {
 
-  def foldRight[A: Manifest, B](es: List[A])(z: B)(op: (A, B) => B): B = {
-
-    def copyInterval(es: List[A], interval: Array[A]): Array[A] = {
+    def copyInterval(iter: Iterator[A], interval: Array[A]): Array[A] = {
       val size = interval.size
-      val iter = es.iterator
       for (i <- 0 until size) {
         interval(i) = iter.next
       }
       interval
     }
 
-    def createNodes(es: List[A], es_sz: Int, sz: Int): (Array[List[A]], Int, Int) = {
-      val nodes = new Array[List[A]](sz)
+    def createNodes(es: LinearSeq[A], es_sz: Int, sz: Int): (Array[LinearSeq[A]], Int, Int) = {
+      val nodes = new Array[LinearSeq[A]](sz)
       var ndIdx = 0
       var es0 = es
       for (i <- 0 until es_sz) {
@@ -51,7 +49,7 @@ object foldList {
     // the size of final interval(a) is exp(s, exp(2, -level)) where s is the size of original list
     // if we fix a, the required level is log(2, log(a, s))
     //
-    def foldr(z: B, es: List[A], es_sz: Int, level: Int): B = {
+    def foldr(z: B, es: LinearSeq[A], es_sz: Int, level: Int): B = {
       if (es_sz == 0) {
         z
       } else {
@@ -60,11 +58,11 @@ object foldList {
         var ndIdx = ndIdx0
         if (level == 0) {
           var interval = getArray(residue)
-          var z1 = copyInterval(nodes(ndIdx), interval).foldRight(z)(op)
+          var z1 = copyInterval(nodes(ndIdx).iterator, interval).foldRight(z)(op)
           if (residue != sz) interval = getArray(sz)
 
           while ({ndIdx -= 1; ndIdx >= 0}) {
-            z1 = copyInterval(nodes(ndIdx), interval).foldRight(z1)(op)
+            z1 = copyInterval(nodes(ndIdx).iterator, interval).foldRight(z1)(op)
           }
           z1
         } else {
