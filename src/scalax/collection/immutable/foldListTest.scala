@@ -1,5 +1,10 @@
 package scalax.collection.immutable
 
+/**
+ * test for foldRight, and benchmark to compare the performance with other scala collection classes.
+ *
+ * @author <a href="http://ncalathus.blogspot.com">nicolas calathus</a>
+ */
 object foldListTest {
   import foldList._
 

@@ -1,6 +1,11 @@
 package scalax.collection.immutable
 import scala.collection.mutable._
 
+/**
+ * foldRight for List. this uses minimal working space for n traversal list.
+ *
+ * @author <a href="http://ncalathus.blogspot.com">nicolas calathus</a>
+ */
 object foldList {
 
   def foldRight[A: Manifest, B](es: List[A])(z: B)(op: (A, B) => B): B = {
