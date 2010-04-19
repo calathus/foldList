@@ -3,19 +3,10 @@ package scalax.collection.immutable
 /**
  * test for foldRight, and benchmark to compare the performance with other scala collection classes.
  *
- * @author <a href="http://ncalathus.blogspot.com">nicolas calathus</a>
+ * @author <a href="http://scalathus.blogspot.com">calathus</a>
  */
-object foldListTest {
+object foldListTest extends Benchmark {
   import foldList._
-
-  def currentTime = System.currentTimeMillis()
-  def benchmark[B](title: String, f: =>B): (B, Long) = {
-    val startTime = currentTime
-    val v = f
-    val duration = currentTime - startTime
-    //println(title+", v: "+v+", time: "+duration)
-    (v, duration)
-  }
 
   def test0 {
     val x0 = foldRight((1 to 0).toList)(0)(_ + _)
