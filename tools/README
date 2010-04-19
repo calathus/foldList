@@ -1,0 +1,14 @@
+[How to create plot]
+
+run some of test, create *.dat files
+
+cd tools
+run gnuplot
+
+in the gnuplot command prompts:
+load "benchmark-foldr.plt"
+
+this open plot window.
+use KSnapshot to take the image.
+
+ 
