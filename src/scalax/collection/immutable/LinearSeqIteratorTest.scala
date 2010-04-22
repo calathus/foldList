@@ -33,7 +33,8 @@ object LinearSeqIteratorTest extends Benchmark {
   }
 
   def main(args: Array[String]): Unit = {
-    //test0
+    //val es = (1 to 99).toList
+    //test0(reverseIterator(es))
 
     val (_, t) = benchmark("test1", test1)
     println("time: "+t)

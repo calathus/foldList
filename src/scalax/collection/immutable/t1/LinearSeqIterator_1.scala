@@ -1,6 +1,5 @@
-package scalax.collection.immutable
+package scalax.collection.immutable.t1
 import scala.collection.immutable.{LinearSeq, HashMap}
-import scala.collection.mutable.{ArrayBuffer}
 
 /**
  * iterator for LinearSeq. this uses minimal working space for n traversal list.
@@ -14,28 +13,42 @@ object LinearSeqIterator {
     def next(): Nothing = throw new NoSuchElementException("next on empty iterator")
   }
 
-  private def copyInterval[A](iter: Iterator[A], interval: ArrayBuffer[A], size: Int): ArrayBuffer[A] = {
-    interval.reduceToSize(0)
+  private def copyInterval[A: Manifest](iter: Iterator[A], interval: Array[A]): Array[A] = {
+    val size = interval.size
     for (i <- 0 until size) {
-      interval + iter.next
+      interval(i) = iter.next
     }
     interval
   }
 
-  private def createNodes[A](es: LinearSeq[A], es_sz: Int, sz: Int): (ArrayBuffer[LinearSeq[A]], Int, Int) = {
-    val nodes = new ArrayBuffer[LinearSeq[A]](sz)   
+  private def createNodes[A: Manifest](es: LinearSeq[A], es_sz: Int, sz: Int): (Array[LinearSeq[A]], Int, Int) = {
+    val nodes = new Array[LinearSeq[A]](sz)
+    var ndIdx = 0
     var es0 = es
     for (i <- 0 until es_sz) {
       if (i % sz == 0) {
-        nodes + es0
+        nodes(ndIdx) = es0
+        ndIdx += 1
       }
       es0 = es0.tail
     }
-    val ndIdx = nodes.size -1
+    ndIdx -= 1
     (nodes, ndIdx, es_sz - ndIdx*sz)
   }
 
-  def reverseIterator[A](es: LinearSeq[A], glevel: Int = 1): Iterator[A] = {
+  def newGetArray[A: Manifest]() = {
+    var map = new HashMap[Int, Array[A]]();
+    (sz: Int)=>map.get(sz) match {
+        case Some(x) => x
+        case None => {
+          val arr = new Array[A](sz)
+          map += sz -> arr
+          arr
+        }
+      }
+    }
+
+  def reverseIterator[A: Manifest](es: LinearSeq[A], glevel: Int = 1): Iterator[A] = {
     //val A = 1024
     //val S = es.size
     //val level0 = Math.log(Math.log(S)/Math.log(A))/Math.log(2)
@@ -46,26 +59,28 @@ object LinearSeqIterator {
     val s1 = Math.pow(a1, Math.pow(2, level))
     println(">>1 S: "+S+", level: "+level+", a1: "+a1+", s1: "+s1)
 */
-    //var szArray = new ArrayBuffer[A](sz);
-    def reverseIterator(es: LinearSeq[A], es_sz: Int, is_residue: Boolean, level: Int): Iterator[A] = {
+    def reverseIterator(es: LinearSeq[A], es_sz: Int, level: Int): Iterator[A] = {
       if (es_sz == 0) LinearSeqIterator.empty
       else {
         val sz: Int = Math.ceil(Math.sqrt(es_sz)).toInt
         val (nodes, ndIdx0, residue) = createNodes(es, es_sz, sz)
-        lazy val szArray = new ArrayBuffer[A](sz)
-        def arrayReverseIterator(es: LinearSeq[A], size: Int, is_residue: Boolean, level: Int): Iterator[A] = {
-          copyInterval(es.iterator, if (is_residue && size != sz) new ArrayBuffer[A](size) else szArray, size).reverseIterator
+        val getArray = if (glevel <= 1) {
+            var szArray = new Array[A](sz);
+            (size: Int)=>if (size == sz) szArray else new Array[A](size)
+          } else newGetArray[A]()
+        def arrayReverseIterator(es: LinearSeq[A], size: Int, level: Int): Iterator[A] = {
+          copyInterval(es.iterator, getArray(size)).reverseIterator
         }
 
-        def revIterator(f: (LinearSeq[A], Int, Boolean, Int)=>Iterator[A]): Iterator[A] =
+        def revIterator(f: (LinearSeq[A], Int, Int)=>Iterator[A]): Iterator[A] =
           new Iterator[A] {
             var ndIdx = ndIdx0
-            var iterator = f(nodes(ndIdx), residue, true, level-1)
+            var iterator = f(nodes(ndIdx), residue, level-1)
             def hasNext = {
               (iterator.hasNext) || {
                 ndIdx -= 1;
                 (ndIdx >= 0) && {
-                  iterator = f(nodes(ndIdx), sz, false, level-1)
+                  iterator = f(nodes(ndIdx), sz, level-1)
                   hasNext
                 }
               }
@@ -76,6 +91,6 @@ object LinearSeqIterator {
         revIterator(if (level == 0) (arrayReverseIterator _) else (reverseIterator _))
       }
     }
-    reverseIterator(es, es.size, false, glevel)
+    reverseIterator(es, es.size, glevel)
   }
 }

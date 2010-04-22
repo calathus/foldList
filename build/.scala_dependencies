@@ -1,6 +1,9 @@
 /usr/local/scala/lib/jline.jar:/usr/local/scala/lib/scala-compiler.jar:/usr/local/scala/lib/scala-dbc.jar:/usr/local/scala/lib/scala-library.jar:/usr/local/scala/lib/scala-swing.jar:/usr/local/scala/lib/scalap.jar:/root/NetBeansProjects/foldList/build/classes
 -------
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> ../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala
 ../src/scalax/collection/immutable/BenchmarkUtils.scala -> ../src/scalax/collection/immutable/BenchmarkUtils.scala
+../src/scalax/collection/immutable/foldListTest.scala -> ../src/scalax/collection/immutable/foldList.scala
+../src/scalax/collection/immutable/foldListTest.scala -> ../src/scalax/collection/immutable/BenchmarkUtils.scala
 ../src/scalax/collection/immutable/foldListTest.scala -> ../src/scalax/collection/immutable/foldListTest.scala
 ../src/scalax/collection/immutable/LinearSeqIteratorTest.scala -> ../src/scalax/collection/immutable/LinearSeqIterator.scala
 ../src/scalax/collection/immutable/LinearSeqIteratorTest.scala -> ../src/scalax/collection/immutable/BenchmarkUtils.scala
@@ -8,6 +11,16 @@
 ../src/scalax/collection/immutable/LinearSeqIterator.scala -> ../src/scalax/collection/immutable/LinearSeqIterator.scala
 ../src/scalax/collection/immutable/foldList.scala -> ../src/scalax/collection/immutable/foldList.scala
 -------
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anon$1.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$createNodes$1.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$newGetArray$1.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$copyInterval$1.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$reverseIterator$1$2.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anon$2.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$1.class
+../src/scalax/collection/immutable/t1/LinearSeqIterator_1.scala -> classes/scalax/collection/immutable/t1/LinearSeqIterator$$anonfun$reverseIterator$1$1.class
 ../src/scalax/collection/immutable/BenchmarkUtils.scala -> classes/scalax/collection/immutable/Benchmark$class.class
 ../src/scalax/collection/immutable/BenchmarkUtils.scala -> classes/scalax/collection/immutable/Benchmark.class
 ../src/scalax/collection/immutable/foldListTest.scala -> classes/scalax/collection/immutable/foldListTest$.class
@@ -28,8 +41,6 @@
 ../src/scalax/collection/immutable/LinearSeqIteratorTest.scala -> classes/scalax/collection/immutable/LinearSeqIteratorTest$$anonfun$2.class
 ../src/scalax/collection/immutable/LinearSeqIteratorTest.scala -> classes/scalax/collection/immutable/LinearSeqIteratorTest$.class
 ../src/scalax/collection/immutable/LinearSeqIteratorTest.scala -> classes/scalax/collection/immutable/LinearSeqIteratorTest$$anonfun$1.class
-../src/scalax/collection/immutable/LinearSeqIterator.scala -> classes/scalax/collection/immutable/LinearSeqIterator$$anonfun$1.class
-../src/scalax/collection/immutable/LinearSeqIterator.scala -> classes/scalax/collection/immutable/LinearSeqIterator$$anonfun$newGetArray$1.class
 ../src/scalax/collection/immutable/LinearSeqIterator.scala -> classes/scalax/collection/immutable/LinearSeqIterator$.class
 ../src/scalax/collection/immutable/LinearSeqIterator.scala -> classes/scalax/collection/immutable/LinearSeqIterator$$anonfun$createNodes$1.class
 ../src/scalax/collection/immutable/LinearSeqIterator.scala -> classes/scalax/collection/immutable/LinearSeqIterator$$anon$2.class
